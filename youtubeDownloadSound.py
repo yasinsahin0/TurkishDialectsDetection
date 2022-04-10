@@ -9,8 +9,9 @@ class SoundDownload:
         self.class_column_name = "lehce"
         self.link_column_name = "link"
         self.csv_data="sound_download/youtube_sound_data.csv"
-        self.sound_download_file = "sound_download"
+        self.sound_download_file = "sound_download/"
         self.main_path = os.getcwd()
+        self.file_name_list = []
 
     def class_name_file_create(self):
         try:
@@ -21,7 +22,8 @@ class SoundDownload:
                 class_name = data[self.class_column_name][cls]
                 class_name_list.append(class_name)
             for file_name in set(class_name_list):
-                os.mkdir(self.main_path + "/" + self.sound_download_file + "/" + file_name)
+                os.mkdir(self.main_path + "/" + self.sound_download_file + file_name)
+                self.file_name_list.append(file_name)
             return True
         except Exception as e:
             print(e)
@@ -52,8 +54,30 @@ class SoundDownload:
             class_name_list.append(data[self.class_column_name][i])
         return video_link_list,class_name_list
 
-nesne = SoundDownload()
-print(nesne.link_class_extract())
-# nesne.download_sound("sound_download","https://youtu.be/XC0e6-U6yfk")
-# nesne.class_name_file_create()
+    def file_rename(self):
+        count = 0
+        for name in self.file_name_list:
+            sound_file = os.listdir(self.sound_download_file+name)
+            for sound_name in sound_file:
+                count += 1
+                os.rename(self.sound_download_file+name+"/"+sound_name,self.sound_download_file+name+"/"+name+"_"+str(count)+".wav")
+
+
+
+if __name__ == "__main__":
+    counter = 0
+    nesne = SoundDownload()
+    if nesne.class_name_file_create():
+        video_link_list,class_name_list = nesne.link_class_extract()
+        if len(video_link_list) == len(class_name_list):
+            for i in range(len(video_link_list)):
+                counter += 1
+                nesne.download_sound(nesne.sound_download_file+class_name_list[i],video_link_list[i])
+                print("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
+                print("{0}. Ses dosyası indirildi...".format(counter))
+    print("##################")
+    print("DOSYA İNDİRME İŞLEMİ BİTTİ")
+    nesne.file_rename()
+    print("DOSYALAR YENİDEN İSİMLENDİRİLDİ")
+
 
