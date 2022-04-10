@@ -7,6 +7,7 @@ class SoundDownload:
 
     def __init__(self):
         self.class_column_name = "lehce"
+        self.link_column_name = "link"
         self.csv_data="sound_download/youtube_sound_data.csv"
         self.sound_download_file = "sound_download"
         self.main_path = os.getcwd()
@@ -42,9 +43,17 @@ class SoundDownload:
             print(e)
             return False
 
-
+    def link_class_extract(self):
+        data = pd.read_csv(self.main_path + "/" + self.csv_data)
+        video_link_list = []
+        class_name_list = []
+        for i in range(1,len(data)):
+            video_link_list.append(data[self.link_column_name][i])
+            class_name_list.append(data[self.class_column_name][i])
+        return video_link_list,class_name_list
 
 nesne = SoundDownload()
-nesne.download_sound("sound_download","https://youtu.be/XC0e6-U6yfk")
+print(nesne.link_class_extract())
+# nesne.download_sound("sound_download","https://youtu.be/XC0e6-U6yfk")
 # nesne.class_name_file_create()
 
