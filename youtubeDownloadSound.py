@@ -2,13 +2,14 @@ import pandas as pd
 import numpy as np
 import os
 import youtube_dl
+import argparse
 
-class SoundDownload:
+class SoundDownload(object):
 
-    def __init__(self):
-        self.class_column_name = "lehce"
+    def __init__(self,csv_data):
+        self.class_column_name = "class"
         self.link_column_name = "link"
-        self.csv_data="sound_download/youtube_sound_data.csv"
+        self.csv_data=csv_data
         self.sound_download_file = "sound_download/"
         self.main_path = os.getcwd()
         self.file_name_list = []
@@ -29,7 +30,7 @@ class SoundDownload:
             print(e)
             return False
 
-    def download_sound(self,download_path,video_link, sound_type="wav"):
+    def download_sound(self,download_path,video_link, sound_type="mp3"):
         try:
             ydl_opts = {'format': 'bestaudio/best',
                         'outtmpl': os.path.join(download_path, '%(title)s.' + sound_type),
@@ -49,7 +50,7 @@ class SoundDownload:
         data = pd.read_csv(self.main_path + "/" + self.csv_data)
         video_link_list = []
         class_name_list = []
-        for i in range(1,len(data)):
+        for i in range(0,len(data)):
             video_link_list.append(data[self.link_column_name][i])
             class_name_list.append(data[self.class_column_name][i])
         return video_link_list,class_name_list
@@ -60,23 +61,34 @@ class SoundDownload:
             sound_file = os.listdir(self.sound_download_file+name)
             for sound_name in sound_file:
                 count += 1
-                os.rename(self.sound_download_file+name+"/"+sound_name,self.sound_download_file+name+"/"+str(count)+"_"+name+".wav")
+                os.rename(self.sound_download_file+name+"/"+sound_name,self.sound_download_file+name+"/"+str(count)+"_"+name+".mp3")
 
 
 if __name__ == "__main__":
+
+    sound_split = False
+    for file in os.listdir():
+        if file == "sound_download":
+            sound_split = True
+    if not sound_split:
+        os.mkdir(os.getcwd() + "/sound_download")
+
+    parser = argparse.ArgumentParser(description='Youtube Ses İndirme script')
+    parser.add_argument('-f', '--datafile', type=str,
+                        help='Youtube link ve sınıflarının bulunduğu csv dosyasının yolunu yazınız. Örnek : data.csv')
+    args = parser.parse_args()
+
     counter = 0
-    nesne = SoundDownload()
-    if nesne.class_name_file_create():
-        video_link_list,class_name_list = nesne.link_class_extract()
+    SD = SoundDownload(args.datafile)
+    if SD.class_name_file_create():
+        video_link_list,class_name_list = SD.link_class_extract()
         if len(video_link_list) == len(class_name_list):
             for i in range(len(video_link_list)):
                 counter += 1
-                nesne.download_sound(nesne.sound_download_file+class_name_list[i],video_link_list[i])
-                print("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
-                print("{0}. Ses dosyası indirildi...".format(counter))
-    print("##################")
+                SD.download_sound(SD.sound_download_file+class_name_list[i],video_link_list[i])
+    print("#################################")
     print("DOSYA İNDİRME İŞLEMİ BİTTİ")
-    nesne.file_rename()
+    SD.file_rename()
     print("DOSYALAR YENİDEN İSİMLENDİRİLDİ")
 
 

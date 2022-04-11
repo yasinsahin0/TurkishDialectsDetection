@@ -11,7 +11,7 @@ class SoundSplitter(object):
         self.splitter_path = 'sound_split/sounds/'
         self.split_folder = split_folder_name #'sound_split/'
         self.main_path = os.getcwd() + "/"
-        self.sound_type = "wav"
+        self.sound_type = "mp3"
 
     # Ses dosyalarının bulunduğu klasör isimlerinin listesini dönüyor
     def soundFolderList(self):
@@ -74,7 +74,7 @@ class SoundSplitter(object):
                                         listem[a + 1],
                                         sound_path.split("/")[2].split(".")[0] + "_" + str(count))
                 cls_name = sound_path.split("/")[2].split(".")[0].split("_")[1]
-                full_name = sound_path.split("/")[2].split(".")[0] + "_" + str(count)+".wav"
+                full_name = sound_path.split("/")[2].split(".")[0] + "_" + str(count)+".mp3"
                 self.metaDataSave(cls_name,full_name)
         print("Meta Data Oluşturuldu : ",self.main_path + self.split_folder + "metadata.csv")
         os.rename(self.main_path + self.split_folder + "metadata.txt",
@@ -85,7 +85,7 @@ class SoundSplitter(object):
     def segmentationSound(self, sound_name, start_time, end_time, save_name):
         newAudio = AudioSegment.from_wav(sound_name)
         sound_piece = newAudio[start_time:end_time]
-        sound_piece.export(self.splitter_path + save_name + ".wav", format="wav")
+        sound_piece.export(self.splitter_path + save_name + ".mp3", format="mp3")
 
     def metaDataSave(self,class_name,name):
         file = open(self.main_path + self.split_folder + "metadata.txt", "a")
