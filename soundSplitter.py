@@ -105,6 +105,15 @@ class SoundSplitter(object):
 
 
 if __name__ == "__main__":
+    sound_split = False
+    for file in os.listdir():
+        if file == "sound_split":
+            sound_split = True
+
+    if not sound_split:
+        os.mkdir(os.getcwd() + "/sound_split")
+        os.mkdir(os.getcwd()+"/sound_split/sounds")
+
 
     parser = argparse.ArgumentParser(description='Ses bölümleme script')
     parser.add_argument('-s','--second', type=int,
