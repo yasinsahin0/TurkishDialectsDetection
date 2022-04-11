@@ -1,13 +1,5 @@
 pandas==1.4.1
 numpy==1.21.2
 youtube_dl==2021.12.17
-<<<<<<< HEAD
-<<<<<<< HEAD
 librosa==0.9.1
 pydub==0.25.1
-=======
-librosa==0.9.1
->>>>>>> parent of 1409bb4 (soundSplit)
-=======
-librosa==0.9.1
->>>>>>> parent of 1409bb4 (soundSplit)

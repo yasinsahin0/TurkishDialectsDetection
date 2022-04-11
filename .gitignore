@@ -1,3 +1,4 @@
 
 .idea/
 sound_download/
+sound_split/sounds/*.wav
