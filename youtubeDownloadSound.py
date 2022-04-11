@@ -63,7 +63,6 @@ class SoundDownload:
                 os.rename(self.sound_download_file+name+"/"+sound_name,self.sound_download_file+name+"/"+name+"_"+str(count)+".wav")
 
 
-
 if __name__ == "__main__":
     counter = 0
     nesne = SoundDownload()
