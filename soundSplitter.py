@@ -27,9 +27,3 @@ class SoundSplitter:
                 file_list.remove(name)
         return file_list
 
-<<<<<<< Updated upstream
-=======
-
-
-
->>>>>>> Stashed changes
