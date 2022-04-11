@@ -60,7 +60,7 @@ class SoundDownload:
             sound_file = os.listdir(self.sound_download_file+name)
             for sound_name in sound_file:
                 count += 1
-                os.rename(self.sound_download_file+name+"/"+sound_name,self.sound_download_file+name+"/"+name+"_"+str(count)+".wav")
+                os.rename(self.sound_download_file+name+"/"+sound_name,self.sound_download_file+name+"/"+str(count)+"_"+name+".wav")
 
 
 if __name__ == "__main__":
