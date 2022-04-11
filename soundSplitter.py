@@ -1,6 +1,7 @@
 import os
 import librosa
 from pydub import AudioSegment
+import argparse
 
 class SoundSplitter:
 
@@ -86,10 +87,16 @@ class SoundSplitter:
         return main_list
 
 if __name__ == "__main__":
-    nesne = SoundSplitter()
-    folder_list = nesne.soundFolderList()
-    file_list = nesne.soundFileList(folder_list)
-    clean_file_list = nesne.fileFolderNameClean(file_list)
-    full_sound_path_list = nesne.fullSoundPathList()
-    nesne.splitSound(full_sound_path_list,10)
-    # nesne.soundFileDataCreate(clean_file_list) # Data dosyasını oluşturuyor
+    parser = argparse.ArgumentParser(description='Ses bölümleme script')
+    parser.add_argument('-s','--second', type=int,
+                        help='Ses dosyalarını bölmek istediğiniz saniye değeri')
+
+    args = parser.parse_args()
+    if args.second > 0:
+        SP = SoundSplitter()
+        folder_list = SP.soundFolderList()
+        file_list = SP.soundFileList(folder_list)
+        clean_file_list = SP.fileFolderNameClean(file_list)
+        full_sound_path_list = SP.fullSoundPathList()
+        SP.splitSound(full_sound_path_list, args.second)
+        SP.soundFileDataCreate(clean_file_list) # Data dosyasını oluşturuyor
