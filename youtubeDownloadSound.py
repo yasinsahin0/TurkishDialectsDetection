@@ -1,25 +1,27 @@
 import pandas as pd
-import numpy as np
 import os
-import youtube_dl
+from pytube import YouTube
 import argparse
+import random
 
 class SoundDownload(object):
 
     def __init__(self,csv_data):
         self.class_column_name = "class"
         self.link_column_name = "link"
+        self.sound_type = "mp4"
         self.csv_data=csv_data
         self.sound_download_file = "sound_download/"
         self.main_path = os.getcwd()
         self.file_name_list = []
+        self.download_counter = 0
 
     def class_name_file_create(self):
         try:
             data = pd.read_csv(self.main_path + "/" + self.csv_data)
             class_count = len(data[self.class_column_name])
             class_name_list = []
-            for cls in range(1, class_count):
+            for cls in range(0, class_count):
                 class_name = data[self.class_column_name][cls]
                 class_name_list.append(class_name)
             for file_name in set(class_name_list):
@@ -30,17 +32,13 @@ class SoundDownload(object):
             print(e)
             return False
 
-    def download_sound(self,download_path,video_link, sound_type="mp3"):
+    def download_sound(self,download_path,video_link):
         try:
-            ydl_opts = {'format': 'bestaudio/best',
-                        'outtmpl': os.path.join(download_path, '%(title)s.' + sound_type),
-                        'postprocessors': [{
-                            'key': 'FFmpegExtractAudio',
-                            'preferredcodec': sound_type,
-                            'preferredquality': '192', }], }
-            with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-                infos = ydl.extract_info(video_link, download=True)
-                filename_base = ydl.prepare_filename(infos)
+            self.download_counter += 1
+            yt = YouTube(video_link)
+            video = yt.streams.filter(only_audio=True).first()
+            out_file = video.download(output_path=download_path)
+            print("İndirilen dosya sayısı : ",str(self.download_counter))
             return True
         except Exception as e:
             print(e)
@@ -61,7 +59,8 @@ class SoundDownload(object):
             sound_file = os.listdir(self.sound_download_file+name)
             for sound_name in sound_file:
                 count += 1
-                os.rename(self.sound_download_file+name+"/"+sound_name,self.sound_download_file+name+"/"+str(count)+"_"+name+".mp3")
+                os.rename(self.sound_download_file+name+"/"+sound_name,
+                          self.sound_download_file+name+"/"+str(count)+"_"+name+"."+self.sound_type)
 
 
 if __name__ == "__main__":

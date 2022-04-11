@@ -3,3 +3,5 @@ numpy==1.21.2
 youtube_dl==2021.12.17
 librosa==0.9.1
 pydub==0.25.1
+
+pip install moviepy

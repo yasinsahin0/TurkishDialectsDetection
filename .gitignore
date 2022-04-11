@@ -1,9 +1,5 @@
 
 .idea/
 sound_download/
-<<<<<<< Updated upstream
 sound_split/sounds/*.wav
-=======
 .DS_Store/
-sound_split/*.wav
->>>>>>> Stashed changes

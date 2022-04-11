@@ -3,6 +3,8 @@
 
 ## Youtube Sound Download
 
+mac : brew install ffmpeg
+
 
 
 
