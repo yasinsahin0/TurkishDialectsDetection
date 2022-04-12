@@ -2,4 +2,6 @@
 .idea/
 sound_download/
 sound_split/sounds/
-.DS_Store/
+.DS_Store
+futureData/.ipynb_checkpoints
+sound_split/*.DS_Store
