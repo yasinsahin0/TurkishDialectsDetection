@@ -44,16 +44,9 @@ class SoundDownload(object):
                 'postprocessors': [{
                     'key': 'FFmpegExtractAudio',
                     'preferredcodec': 'mp3',
-                    'preferredquality': '320',
-                }],
-            }
-
+                    'preferredquality': '320',}],}
             with youtube_dl.YoutubeDL(ydl_opts) as ydl:
                 ydl.download([video_link])
-
-            # yt = YouTube(video_link)
-            # video = yt.streams.filter(only_audio=True).first()
-            # out_file = video.download(output_path=download_path)
             print("İndirilen dosya sayısı : ",str(self.download_counter))
             time.sleep(3)
             for i in os.listdir(self.main_path):
