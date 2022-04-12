@@ -1,5 +1,4 @@
 import os
-import librosa
 from pydub import AudioSegment
 import argparse
 import time
@@ -25,9 +24,10 @@ class SoundSplitter(object):
     def soundFileList(self,folder_list):
         file_list = []
         for folderName in folder_list:
-            fileList = os.listdir(self.main_path+self.sound_folder_path+folderName)
-            for fileName in fileList:
-                file_list.append(fileName)
+            if folderName[0] != ".":
+                fileList = os.listdir(self.main_path+self.sound_folder_path+folderName)
+                for fileName in fileList:
+                    file_list.append(fileName)
         return file_list
 
     # Ses dosyaları listesinin içinde ayrık tipteki dosyaları temizliyor
@@ -83,7 +83,7 @@ class SoundSplitter(object):
 
     # ses dosyalarını bölme işlemini gerçekleştiriyor
     def segmentationSound(self, sound_name, start_time, end_time, save_name):
-        newAudio = AudioSegment.from_wav(sound_name)
+        newAudio = AudioSegment.from_mp3(sound_name)
         sound_piece = newAudio[start_time:end_time]
         sound_piece.export(self.splitter_path + save_name + ".mp3", format="mp3")
 
@@ -98,8 +98,9 @@ class SoundSplitter(object):
         main_list = []
         folder_list = self.soundFolderList()
         for folder in folder_list:
-            for file in os.listdir(self.sound_folder_path+folder):
-                main_list.append(self.sound_folder_path+folder+"/"+file)
+            if folder[0] != ".":
+                for file in os.listdir(self.sound_folder_path+folder):
+                    main_list.append(self.sound_folder_path+folder+"/"+file)
         return main_list
 
 
