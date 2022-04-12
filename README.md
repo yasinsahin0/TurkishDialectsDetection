@@ -10,17 +10,12 @@ mac : brew install ffmpeg
 
 ## Sound Splitter
 
-Ses dosyalarını parçalamak için oluşturulmuş bir scripttir. Kullanmadan önce sound_download klasörüne   
-bölünmemiş uzun sürelere sahip ses dosyalarının hiyerarşik olarak indirilmiş olması gerekmektedir.  
-Bu scripti çalıştırmadan önce youtubeDownloadSound scripti çalıştırılmaldır.  
-Örnek bir sound_download klasör hiyerarşisi şu şekilde olmalıdır.  
-```
-sound_download >> klasör
-    sınıf1 >> klasör
-    sınıf2 >> klasör
-    sınıf3 >> klasör
-```
-Bu dizinler ve içerinde ses dosyaları olduğundan emin olduktan sonra **soundSplitter**  
+### [Sound Splitter Dökümantation ](https://github.com/yasinsahin0/Turk-Lehce-ml-ai/blob/main/documentation/soundSplitter.md)
+Ses dosyalarını parçalamak için oluşturulmuş bir scripttir. Kullanmadan önce sound_download klasörüne
+bölünmemiş uzun sürelere sahip ses dosyalarının hiyerarşik olarak indirilmiş olması gerekmektedir.
+Bu scripti çalıştırmadan önce youtubeDownloadSound scripti çalıştırılmaldır.
+[Youtube Download](https://github.com/yasinsahin0/Turk-Lehce-ml-ai/blob/main/documentation/soundDownload.md)
+Bu dizinler ve içerinde ses dosyaları olduğundan emin olduktan sonra **soundSplitter**
 scriptini şu komut ile çalıştırabilirsiniz.
 
 ``` 
