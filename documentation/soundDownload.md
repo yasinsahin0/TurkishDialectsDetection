@@ -1,47 +1,35 @@
-# Sound Splitter
+# Sound Download
 
-Sound splitter script görevi itibari ile belirli klasör yapısında bulunan ses dosyalarını belirtilen saniye boyutunda parçalara ayırmak ve 
-bir dosya altında toplamaktır. Bir dosya altında topladıktan sonra bu ses dosyalarının **dosya yolunu** ve **sınıf ismini** tutan bir
-**metadata.csv** dosyası oluşturmaktadır. Öncelikle scriptin sağlıklı çalışabilmesi için gerekli olan parametreleri açıklayarak başlamak istiyorum.  
+Youtube linkleri aracılığı ile toplamış olduğumuz veri setini bizim yerimize mp3 formatında indirip klasör hiyerarşisi kuran bir scripttir.
+Bu script kullanımı için gerekli kütüphaneler haricinde başka bir işlem yapmaya gerek bulunmamaktadır. Topladığımız dataların bulunması
+gereken dizin ve örnek datalar alt bölümlerde verilecektir.
   
 ## Requirements
 
-1. sound_download >> bu klasör download scripti ile otomatik oluşmaktadır. Bu main dosya altında her bir sınıfın klasörleri oluşmaktadır. 
-* ozbekce >> 1.sınıfımın ismi sound_download klasörümün içindeki klasör.
-* azerbaycan >> 2.sınıfım 
-* turkmence >> 3.sınıfım  
-...  
-...  
-2. Ses dosyalarının ve bulundukları klasörün isim kontrolü:
-sınıf klasörlerinin isimleri youtube_data.csv dosyasındaki sınıf ismi ile aynı olmalıdır.
+1. youtube_data.csv adında dataların bulunduğu klasörün ana dizinde bulunması gereklidir.
+Örnek data dosyası ve içeriği aşağıda gösterilmiştir.  
+
+| link                         | class      |
+| ---------------------------- |:----------:|
+| https://youtu.be/c7G_2THFs8Y | ozbekce    |
+| https://youtu.be/IgO2Y2fPYPM | azerbaycan |
+| https://youtu.be/S2R1T6x8tRw | ozbekce    |
 
 
-Klasör hiyerarşisi şu şekilde bulunmalıdır;
-
-| path                                       |
-|:------------------------------------------:|
-| sound_download/ozbekce/1_ozbekce.mp3       |
-| sound_download/azerbaycan/2_azerbaycan.mp3 |
-| sound_download/ozbekce/3_ozbekce.mp3       |
-
-NOT : Ses dosyalarının başlarında bulunan sayılar değişiklik gösterebilir.Bu durumu dikkate almayın.
-İsim formatında bir farklılık yoksa işleme devam edebilirsiniz. Aykırı bir durum görürseniz split işlemini başlatmayınız...
-
-## Splitter start
-Ses dosyalarını parçalamak için oluşturulmuş bir scripttir. **Kullanmadan önce requirements başlığındaki adımların
-doğru olduğundan emin olun.** Gereklilikler sağlandıktan sonra **soundSplitter** scriptini şu komut ile çalıştırabilirsiniz.
+## Download start
+Datalarımızı indirmek için scripti çalıştırarak konsol ekranından takibini yapabiliriz.Scripti çalıştırmak için
+aşağıdaki komudu yazmanız yeterlidir.
 
 ``` 
-$ python soundSplitter.py -s 5 -f sound_download/ -t sound_split/
+$ python youtubeDownloadSound.py -f data.csv
 
 -h : help :örnek kullanımlar
--s : Kesilecek uzunluk saniye cinsinden
--f : Ham ses dosyalarının bulunduğu ana dizin 
--t : Kesme işleminin sonucunda oluşan ses dosyalarının kayıt edileceği klasör
+-f : Link ve sınıfların bulunduğu data dosyasının yolu
 
 ```
+
 # Script Fonksiyonları
-## soundFolderList
+### soundFolderList
 Fonksiyon ses dosyalarının bulunduğu klasör isimlerinin bir listesini döndürür. Başında '.' bulunan dosyaları
 hariç tutar örnek olarak .gitignore, .DS_Store gibi dosyaları listeye dahil etmez.
 ```python
@@ -55,7 +43,7 @@ hariç tutar örnek olarak .gitignore, .DS_Store gibi dosyaları listeye dahil e
                 sound_folder_list.remove(file_name)
         return sound_folder_list
 ```
-## soundFileList
+### soundFileList
 Fonksiyon parametre olarak ses dosyalarının bulunduğu klasörlerin listesini alır. Klasör isimlerinin bulunduğu
 listeyi gerekli işlemlerden geçirdikten sonra başında '.' bulunan dosyaları hariç tutarak klasör içindeki tüm ses dosyalarının
 dosya yollarını liste halinde döndürür.
@@ -73,7 +61,7 @@ dosya yollarını liste halinde döndürür.
                         file_list.append(fileName)
         return file_list
 ```
-## fileFolderNameClean
+### fileFolderNameClean
 Fonksiyon parametre olarak ses dosyalarının isimlerinin bulunduğu bir liste alır. Temizleme ve ayrıştırma işlemi
 yaparak dosyanın ses dosyası olup olmadığını kontrol eder. Eğer dosya bir ses dosyası değilse listeden ismini siler
 ve temizleme işlemini bitirir. Temizlenmiş isim listesinin dönüş olarak verir.
@@ -88,7 +76,7 @@ ve temizleme işlemini bitirir. Temizlenmiş isim listesinin dönüş olarak ver
                 print("Problemli {0} adet dosya listeden çıkarıldı.".format(count))
         return file_name_list
 ```
-## segmentationSound
+### segmentationSound
 Ses dosyalarının parçalama işlemini yapmaktadır. Parametre olarak **ses dosyasının ismini, başlangıç süresi, bitiş süresi,
 kayit edilecek dosya ismini** alır. Parçalama işlemini [Audiosegment](https://audiosegment.readthedocs.io/en/latest/audiosegment.html)
 kütüphanesi ile okunan ses dosyasından gerçekleştirir. 
@@ -103,7 +91,7 @@ kütüphanesi ile okunan ses dosyasından gerçekleştirir.
         sound_piece = newAudio[start_time:end_time]
         sound_piece.export(self.splitter_path + save_name + ".mp3", format="mp3")
 ```
-## metaDataSave
+### metaDataSave
 Bölümlendirme işlemi yapılan tüm ses dosyalarının **sınıf ismini, dosya ismini** parametre olarak alır. Bu bilgilerin
 hepsini metadata.csv dosyası olarak sound_split klasörünün içinde saklar.
 ```python
@@ -117,7 +105,7 @@ hepsini metadata.csv dosyası olarak sound_split klasörünün içinde saklar.
         file.close()
 ```
 
-## splitSound
+### splitSound
 Bölme işlemini gerçekleştirmek için ses dosyalarının listesini ve bölünecek saniye (int) değerini giriş olarak alır.
 Ses dosyasının bulunduğu list uzun dosya yolundan oluşmaktadır.(örn sound_split/sounds/2_azerbaycan.mp3) Ses dosyasını
 okuyabilmek için [Audiosegment](https://audiosegment.readthedocs.io/en/latest/audiosegment.html) kütüphanesi kullanılmıştır. Bu kütüphane sayesinde ses dosyasının süre olarak
@@ -160,7 +148,7 @@ kayıt işlemi gerçekleştirilmektedir. Bu fonksiyon sonuçlandırma fonksiyonu
 ```
 
 
-## soundFileDataCreate EKSİK
+### soundFileDataCreate EKSİK
 Fonksiyon giriş olarak ses dosyalarının temizlenmiş isimlerinin bulunduğu listeyi alır. Bu fonksiyon scriptin
 en son çalışan fonksiyonudur. Bölümleme işlemi bittikten sonra devreye girer ve tüm ayrıştırılan ses dosyalarının
 isimlerinin ve sınıflarının bulunduğu bir

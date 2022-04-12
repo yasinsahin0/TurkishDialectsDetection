@@ -3,6 +3,7 @@ from pydub import AudioSegment
 import argparse
 import time
 
+# en son parçalama işlemi 5178 dosya oluştu - 158 dakika sürdü
 class SoundSplitter(object):
 
     def __init__(self,sound_folder_name,split_folder_name):
@@ -27,7 +28,8 @@ class SoundSplitter(object):
             if folderName[0] != ".":
                 fileList = os.listdir(self.main_path+self.sound_folder_path+folderName)
                 for fileName in fileList:
-                    file_list.append(fileName)
+                    if fileName[0] != ".":
+                        file_list.append(fileName)
         return file_list
 
     # Ses dosyaları listesinin içinde ayrık tipteki dosyaları temizliyor
@@ -76,9 +78,9 @@ class SoundSplitter(object):
                 cls_name = sound_path.split("/")[2].split(".")[0].split("_")[1]
                 full_name = sound_path.split("/")[2].split(".")[0] + "_" + str(count)+".mp3"
                 self.metaDataSave(cls_name,full_name)
-        print("Meta Data Oluşturuldu : ",self.main_path + self.split_folder + "metadata.csv")
-        os.rename(self.main_path + self.split_folder + "metadata.txt",
-                  self.main_path + self.split_folder + "metadata.csv")
+        print("Meta Data Oluşturuldu : ",self.main_path + self.split_folder + "Splitmetadata.csv")
+        os.rename(self.main_path + self.split_folder + "Splitmetadata.txt",
+                  self.main_path + self.split_folder + "Splitmetadata.csv")
         print("Parçalama işlemi başarıyla tamamlandı")
 
     # ses dosyalarını bölme işlemini gerçekleştiriyor
@@ -88,7 +90,7 @@ class SoundSplitter(object):
         sound_piece.export(self.splitter_path + save_name + ".mp3", format="mp3")
 
     def metaDataSave(self,class_name,name):
-        file = open(self.main_path + self.split_folder + "metadata.txt", "a")
+        file = open(self.main_path + self.split_folder + "Splitmetadata.txt", "a")
         file.write(name+","+class_name+"\n")
         file.close()
 
@@ -100,7 +102,8 @@ class SoundSplitter(object):
         for folder in folder_list:
             if folder[0] != ".":
                 for file in os.listdir(self.sound_folder_path+folder):
-                    main_list.append(self.sound_folder_path+folder+"/"+file)
+                    if file[0] != ".":
+                        main_list.append(self.sound_folder_path+folder+"/"+file)
         return main_list
 
 
