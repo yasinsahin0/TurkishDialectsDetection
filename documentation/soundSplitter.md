@@ -9,9 +9,9 @@ bir dosya altında toplamaktır. Bir dosya altında topladıktan sonra bu ses do
 1. sound_download >> bu klasör download scripti ile otomatik oluşmaktadır. Bu main dosya altında her bir sınıfın klasörleri oluşmaktadır. 
 * ozbekce >> 1.sınıfımın ismi sound_download klasörümün içindeki klasör.
 * azerbaycan >> 2.sınıfım 
-* turkmence >> 3.sınıfım
-...
-...
+* turkmence >> 3.sınıfım  
+...  
+...  
 2. Ses dosyalarının ve bulundukları klasörün isim kontrolü:
 sınıf klasörlerinin isimleri youtube_data.csv dosyasındaki sınıf ismi ile aynı olmalıdır.
 
@@ -33,4 +33,24 @@ NOT : Ses dosyalarının başlarında bulunan sayılar değişiklik gösterebili
 İsim formatında bir farklılık yoksa işleme devam edebilirsiniz. Aykırı bir durum görürseniz split işlemini başlatmayınız...
 
 ## Splitter start
-Ses dosyalarını bölümlemek için script kodlarına kar
+Ses dosyalarını parçalamak için oluşturulmuş bir scripttir. Kullanmadan önce sound_download klasörüne   
+bölünmemiş uzun sürelere sahip ses dosyalarının hiyerarşik olarak indirilmiş olması gerekmektedir.  
+Bu scripti çalıştırmadan önce youtubeDownloadSound scripti çalıştırılmaldır.  
+Örnek bir sound_download klasör hiyerarşisi şu şekilde olmalıdır.  
+```
+sound_download >> klasör
+    sınıf1 >> klasör
+    sınıf2 >> klasör
+    sınıf3 >> klasör
+```
+Bu dizinler ve içerinde ses dosyaları olduğundan emin olduktan sonra **soundSplitter**  
+scriptini şu komut ile çalıştırabilirsiniz.
+
+``` 
+python soundSplitter.py -s 5 -f sound_download/ -t sound_split/
+
+-s : Kesilecek uzunluk saniye cinsinden
+-f : Ham ses dosyalarının bulunduğu ana dizin
+-t : Kesme işleminin sonucunda oluşan ses dosyalarının kayıt edileceği klasör
+
+```
