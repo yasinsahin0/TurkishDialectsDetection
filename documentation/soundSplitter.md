@@ -16,8 +16,11 @@ a. ozbekce >> 1.sınıfımın ismi sound_download klasörümün içindeki klasö
 sınıf klasörlerinin isimleri youtube_data.csv dosyasındaki sınıf ismi ile aynı olmalıdır.
 
 Örnek : youtube_data.csv
-|__Bold Key__| Value1 |
-| Normal Key | Value2 |
+| Tables        | Are           | Cool  |
+| ------------- |:-------------:| -----:|
+| col 3 is      | right-aligned | $1600 |
+| col 2 is      | centered      |   $12 |
+| zebra stripes | are neat      |    $1 |
 ``` 
 link,class
 https://youtu.be/c7G_2THFs8Y,ozbekce
