@@ -7,9 +7,9 @@ bir dosya altında toplamaktır. Bir dosya altında topladıktan sonra bu ses do
 ## Requirements
 
 1. sound_download >> bu klasör download scripti ile otomatik oluşmaktadır. Bu main dosya altında her bir sınıfın klasörleri oluşmaktadır. 
-..* ozbekce >> 1.sınıfımın ismi sound_download klasörümün içindeki klasör.
-..* azerbaycan >> 2.sınıfım 
-..* turkmence >> 3.sınıfım
+⋅⋅* ozbekce >> 1.sınıfımın ismi sound_download klasörümün içindeki klasör.
+⋅⋅* azerbaycan >> 2.sınıfım 
+⋅⋅* turkmence >> 3.sınıfım
 ...
 ...
 2. Ses dosyalarının ve bulundukları klasörün isim kontrolü:
