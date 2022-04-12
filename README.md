@@ -3,14 +3,23 @@
 
 ## Youtube Sound Download
 
-mac : brew install ffmpeg
+### [Youtube Sound Download Dökümantasyonu](https://github.com/yasinsahin0/Turk-Lehce-ml-ai/blob/main/documentation/soundDownload.md)
 
+Youtube üzerinden toplamış olduğumuz verilerimizi bu script yardımı ile indirebiliriz. Bütün işlemlerin
+en başında gelen scripttir. Link ve sınıflarını topladığımız csv dosyamızı girdi olarak veriyoruz.
+Detaylı bilgi için dökümantasyonuna gidebilirsiniz.
 
+``` 
+$ python youtubeDownloadSound.py -f data.csv
 
+-h : help :örnek kullanımlar
+-f : Link ve sınıfların bulunduğu data dosyasının yolu
+
+```
 
 ## Sound Splitter
 
-### [Sound Splitter Dökümantation ](https://github.com/yasinsahin0/Turk-Lehce-ml-ai/blob/main/documentation/soundSplitter.md)
+### [Sound Splitter Dökümantasyonu](https://github.com/yasinsahin0/Turk-Lehce-ml-ai/blob/main/documentation/soundSplitter.md)
 Ses dosyalarını parçalamak için oluşturulmuş bir scripttir. Kullanmadan önce sound_download klasörüne
 bölünmemiş uzun sürelere sahip ses dosyalarının hiyerarşik olarak indirilmiş olması gerekmektedir.
 Bu scripti çalıştırmadan önce youtubeDownloadSound scripti çalıştırılmaldır.
@@ -29,5 +38,6 @@ python soundSplitter.py -s 5 -f sound_download/ -t sound_split/
 
 ## Hatalar
 
-Hata : youtube_dl.utils.PostProcessingError: ffprobe/avprobe and ffmpeg/avconv not found. Please install one.  
-çözüm : sudo apt-get install ffmpeg  
+Hata : youtube_dl.utils.PostProcessingError: ffprobe/avprobe and ffmpeg/avconv not found. Please install one.   
+çözüm linux: sudo apt-get install ffmpeg   
+çözüm mac : brew install ffmpeg  
