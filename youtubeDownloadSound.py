@@ -2,14 +2,16 @@ import pandas as pd
 import os
 from pytube import YouTube
 import argparse
-import random
+import youtube_dl
+import time
+import shutil
 
 class SoundDownload(object):
 
     def __init__(self,csv_data):
         self.class_column_name = "class"
         self.link_column_name = "link"
-        self.sound_type = "mp4"
+        self.sound_type = "mp3"
         self.csv_data=csv_data
         self.sound_download_file = "sound_download/"
         self.main_path = os.getcwd()
@@ -33,12 +35,31 @@ class SoundDownload(object):
             return False
 
     def download_sound(self,download_path,video_link):
+
+        time.sleep(2)
         try:
             self.download_counter += 1
-            yt = YouTube(video_link)
-            video = yt.streams.filter(only_audio=True).first()
-            out_file = video.download(output_path=download_path)
+            ydl_opts = {
+                'format': 'bestaudio/best',
+                'postprocessors': [{
+                    'key': 'FFmpegExtractAudio',
+                    'preferredcodec': 'mp3',
+                    'preferredquality': '320',
+                }],
+            }
+
+            with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+                ydl.download([video_link])
+
+            # yt = YouTube(video_link)
+            # video = yt.streams.filter(only_audio=True).first()
+            # out_file = video.download(output_path=download_path)
             print("İndirilen dosya sayısı : ",str(self.download_counter))
+            time.sleep(3)
+            for i in os.listdir(self.main_path):
+                if i[-3:] == "mp3":
+                    shutil.move(i,download_path)
+                    print("move edildi")
             return True
         except Exception as e:
             print(e)

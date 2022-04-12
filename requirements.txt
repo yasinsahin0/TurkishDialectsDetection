@@ -5,3 +5,4 @@ librosa==0.9.1
 pydub==0.25.1
 
 pip install moviepy
+pip install mutagen
