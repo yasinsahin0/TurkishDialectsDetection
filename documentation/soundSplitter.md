@@ -15,17 +15,20 @@ a. ozbekce >> 1.sınıfımın ismi sound_download klasörümün içindeki klasö
 2. Ses dosyalarının ve bulundukları klasörün isim kontrolü:
 sınıf klasörlerinin isimleri youtube_data.csv dosyasındaki sınıf ismi ile aynı olmalıdır.
 
-Örnek : youtube_data.csv
+## Örnek - youtube_data.csv
 | link                         | class      |
 | ---------------------------- |:----------:|
 | https://youtu.be/c7G_2THFs8Y | ozbekce    |
 | https://youtu.be/IgO2Y2fPYPM | azerbaycan |
 | https://youtu.be/S2R1T6x8tRw | ozbekce    |
+
+Klasör hiyerarşisi şu şekilde bulunmalıdır;
+| path                                       |
+| ------------------------------------------ |
+| sound_download/ozbekce/1_ozbekce.mp3       |
+| sound_download/azerbaycan/2_azerbaycan.mp3 |
+| sound_download/ozbekce/3_ozbekce.mp3       |
 ``` 
-link,class
-https://youtu.be/c7G_2THFs8Y,ozbekce
-https://youtu.be/IgO2Y2fPYPM,azerbaycan
-https://youtu.be/S2R1T6x8tRw,ozbekce
 
 Klasör hiyerarşisi şu şekilde bulunmalıdır;
 sound_download/ozbekce/1_ozbekce.mp3
