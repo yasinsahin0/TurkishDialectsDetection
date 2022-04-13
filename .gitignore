@@ -5,3 +5,5 @@ sound_split/sounds/
 .DS_Store
 futureData/.ipynb_checkpoints
 sound_split/*.DS_Store
+.ipynb_checkpoints/
+
